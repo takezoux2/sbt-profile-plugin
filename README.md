@@ -1,4 +1,4 @@
-# This plugin still be alpha version.There remains many bugs.
+# This plugin still be alpha version.Many bugs remains .
 
 # pom-gen-plugin
 
@@ -37,6 +37,36 @@ build.sbt
       ),
       ProfileSetting("production",publishTo = Some("test-nexus" at "http://test.nexus.com"))
     )
+
+build.scala
+
+
+    import sbt._
+    import sbt.Keys._
+    import profile.Plugin._
+    import profile.Plugin.ProfileKeys._
+    
+    class YourBuild extends Build{
+    
+      val root = Project(id = "root",base =  file("."),
+        settings = Project.defaultSettings ++ profileSettings ++ Seq(
+          profile := "test",
+          profileList := Seq("development","test","production"),
+          profileSettingsList := Seq(
+            ProfileSetting("test",
+              resourceDirs = Seq( file("./additional/resource/directory"),
+              sourceDirs = Seq( file("./additonal/source/directory"),
+              publishTo = Some("test-nexus" at "http://test.nexus.com"),
+              overrideSettings = Seq(
+                version ~= v => v + "-SNAPSHOT"
+              )
+            ),
+            ProfileSetting("production",publishTo = Some("test-nexus" at "http://test.nexus.com"))
+          )
+        )
+      )
+    
+    }
     
     
 @sbt console
@@ -88,7 +118,7 @@ Default is Seq("development","test","production")
 
 ### profileSettingsList
 
-
+Settings foreach profile
 
 ## Commands
 
