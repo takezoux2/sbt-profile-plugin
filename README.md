@@ -1,6 +1,6 @@
 # This plugin still be alpha version.Many bugs remains .
 
-# pom-gen-plugin
+# profile-plugin
 
 
 Switch settings according to profile.
